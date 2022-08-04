@@ -9,6 +9,8 @@ export class Player {
   }
 
   public betRequest(gameState: GameState, betCallback: (bet: number) => void): void {
+    console.log(gameState)
+
     // this will fold all the time
     // betCallback(0)
 
