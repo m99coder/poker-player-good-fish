@@ -4,7 +4,7 @@ import { allIn, callOrCheck, fold, raise, raiseHigh } from "./actions";
 import { logGameStatus } from "./helpers";
 
 export class Player {
-  private encodeCard(card: GameCard): string {
+  static encodeCard(card: GameCard): string {
     const rank = card.rank === "10" ? "T" : card.rank;
     return `${rank}${card.suit[0]}`;
   }
@@ -15,19 +15,17 @@ export class Player {
   ): void {
     // encode hole cards
     const hand = gameState.players[gameState.in_action].hole_cards.map((c) =>
-      Card.newCard(this.encodeCard(c))
+      Card.newCard(Player.encodeCard(c))
     );
 
     // encode community cards
     const board = gameState.community_cards.map((c) =>
-      Card.newCard(this.encodeCard(c))
+      Card.newCard(Player.encodeCard(c))
     );
 
     const evaluator = new Evaluator();
     let rank = evaluator.evaluate(board, hand);
     let percentage = 1.0 - evaluator.get_five_card_rank_percentage(rank);
-
-
 
     // this will fold all the time
     // betCallback(0)
@@ -85,8 +83,7 @@ export class Player {
         raiseHigh(gameState, betCallback)
       } else if (percentage > 0.55) {
         raise(gameState, betCallback);
-      }
-      else if (percentage > 0.4) {
+      } else if (percentage > 0.4) {
         callOrCheck(gameState, betCallback);
       } else {
         fold(gameState, betCallback);
@@ -94,7 +91,7 @@ export class Player {
     }
   }
 
-  public showdown(gameState: GameState): void {
+  public showdown(_gameState: GameState): void {
     // for implementing learning algorithms only
     // console.log("showdown", gameState);
   }
