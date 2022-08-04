@@ -1,29 +1,28 @@
-import { allowedNodeEnvironmentFlags } from "process";
-import { GameState } from "./GameState";
+import { GameState } from './GameState'
 
 // export function raise(gameState: GameState, betCallback: (bet: number) => void): void {
 //     betCallback(gameState.current_buy_in)
 // }
 
-export function check(gameState: GameState, betCallback: (bet: number) => void): void {
-    const currentBuy = gameState.current_buy_in;
-    const us = gameState.players[gameState.in_action]
-    if (currentBuy === us.bet) {
-        console.log('ACTION: check function: check with 0')
-        betCallback(0) // no more raise
-    } else {
-        console.log(`ACTION: calling with current_buy: ${currentBuy}`)
-        const amount = currentBuy - us.bet
-        betCallback(amount) // we stay in the game
-    }
+export function callOrCheck(gameState: GameState, betCallback: (bet: number) => void): void {
+  const currentBuy = gameState.current_buy_in;
+  const us = gameState.players[gameState.in_action]
+  if (currentBuy === us.bet) {
+    console.log('ACTION: check function: check with 0')
+    betCallback(0) // no more raise
+  } else {
+    console.log(`ACTION: calling with current_buy: ${currentBuy}`)
+    const amount = currentBuy - us.bet
+    betCallback(amount) // we stay in the game
+  }
 }
 
-export function fold(gameState: GameState, betCallback: (bet: number) => void): void {
-    console.log(`ACTION: FOLD!`)
-    betCallback(0)
+export function fold(_gameState: GameState, betCallback: (bet: number) => void): void {
+  console.log(`ACTION: FOLD!`)
+  betCallback(0)
 }
 
 export function allIn(gameState: GameState, betCallback: (bet: number) => void): void {
-    console.log(`ACTION: ALL IN!!!!`)
-    betCallback(gameState.players[gameState.in_action].stack)
+  console.log(`ACTION: ALL IN!!!!`)
+  betCallback(gameState.players[gameState.in_action].stack)
 }

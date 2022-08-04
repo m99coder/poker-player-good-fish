@@ -1,7 +1,7 @@
 import * as express from 'express'
 import { Player } from './Player'
 
-const VERSION = 'Evil Dolphin 🐬 with some 🐟'
+const VERSION = 'Monte Carlo with 1M'
 
 const app = express()
 const player = new Player()
