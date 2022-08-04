@@ -40,10 +40,10 @@ export class Player {
 
       const startingHandRanks =
         gameState.players[gameState.in_action].hole_cards
-          .map(c => c.rank === '10' ? 'T' : c.rank).join();
+          .map(c => c.rank === '10' ? 'T' : c.rank).join('');
       const startingHandSuits =
         gameState.players[gameState.in_action].hole_cards
-          .map(c => c.suit[0]).join();
+          .map(c => c.suit[0]).join('');
 
       const raiseHandRanks = ['AA', 'KK', 'QQ', 'JJ', 'TT', 'AK'];
       const raiseHandSuits = ['cc', 'ss', 'hh', 'dd'];
