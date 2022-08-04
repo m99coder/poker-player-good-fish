@@ -49,9 +49,9 @@ export class Player {
       const raiseHandSuits = ['cc', 'ss', 'hh', 'dd'];
       const callHandRanks = ['AQ', 'AJ', 'AT', 'A9', 'KQ', 'KJ', 'KT'];
 
-      if (raiseHandRanks || raiseHandSuits) {
+      if (raiseHandRanks.includes(startingHandRanks) || raiseHandSuits.includes(startingHandSuits)) {
         raise(gameState, betCallback);
-      } else if (callHandRanks) {
+      } else if (callHandRanks.includes(startingHandRanks)) {
         callOrCheck(gameState, betCallback);
       } else {
         fold(gameState, betCallback);
