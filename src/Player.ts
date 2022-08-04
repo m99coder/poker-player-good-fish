@@ -1,6 +1,6 @@
 import { GameState, Card as GameCard } from "./GameState";
 import { Card, Evaluator } from "deuces.js";
-import { allIn, callOrCheck, fold, raise } from "./actions";
+import { allIn, callOrCheck, fold, raise, raiseHigh } from "./actions";
 import { logGameStatus } from "./helpers";
 
 export class Player {
@@ -57,11 +57,26 @@ export class Player {
         fold(gameState, betCallback);
       }
 
-    } else {
+    } if (gameState.community_cards.length === 3) {
 
       if (percentage > 0.6) {
-        allIn(gameState, betCallback);
+        raiseHigh(gameState, betCallback);
       } else if (percentage > 0.4) {
+        callOrCheck(gameState, betCallback);
+      } else {
+        fold(gameState, betCallback);
+      }
+
+    } else {
+
+      if (percentage > 0.77) {
+        allIn(gameState, betCallback);
+      } else if (percentage > 0.65) {
+        raiseHigh(gameState, betCallback)
+      } else if (percentage > 0.55) {
+        raise(gameState, betCallback);
+      }
+      else if (percentage > 0.4) {
         callOrCheck(gameState, betCallback);
       } else {
         fold(gameState, betCallback);

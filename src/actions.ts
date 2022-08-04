@@ -4,6 +4,11 @@ import { GameState } from './GameState'
      betCallback(gameState.minimum_raise);
  }
 
+ export function raiseHigh(gameState: GameState, betCallback: (bet: number) => void): void {
+    const us = gameState.players[gameState.in_action]
+    betCallback(Math.floor(us.stack / 3));
+ }
+
 export function callOrCheck(gameState: GameState, betCallback: (bet: number) => void): void {
   const currentBuy = gameState.current_buy_in;
   const us = gameState.players[gameState.in_action]
