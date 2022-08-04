@@ -39,16 +39,10 @@ export class Player {
     if (gameState.community_cards.length === 0) {
       callOrCheck(gameState, betCallback);
     } else {
-      // evaluate rank
-      // Hand strength is valued on a scale of 1 to 7462,
-      // where 1 is a Royal Flush and 7462 is unsuited 7-5-4-3-2,
-      // as there are only 7642 distinctly ranked hands in poker.
 
-      if (percentage > 0.9) {
+      if (percentage > 0.6) {
         allIn(gameState, betCallback);
-      } else if (percentage > 0.8) {
-        raise(gameState, betCallback);
-      } else if (percentage > 0.5) {
+      } else if (percentage > 0.4) {
         callOrCheck(gameState, betCallback);
       } else {
         fold(gameState, betCallback);
