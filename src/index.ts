@@ -1,7 +1,7 @@
 import * as express from 'express'
 import { Player } from './Player'
 
-const VERSION = 'Evil 🐟'
+const VERSION = 'Evil 🐟 ¯\_(ツ)_/¯'
 
 const app = express()
 const player = new Player()
@@ -27,4 +27,4 @@ app.post('/', (req, res) => {
 const port = parseInt(process.env['PORT'], 10) || 1337
 const host = '0.0.0.0'
 
-app.listen(port, host, () => console.log(`Listening at http://${host}:${port}`))
+app.listen(port, host, () => console.log(`Listeningz at http://${host}:${port}`))
