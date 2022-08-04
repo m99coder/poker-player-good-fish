@@ -1,8 +1,8 @@
 import { GameState } from './GameState'
 
-// export function raise(gameState: GameState, betCallback: (bet: number) => void): void {
-//     betCallback(gameState.current_buy_in)
-// }
+ export function raise(gameState: GameState, betCallback: (bet: number) => void): void {
+     betCallback(gameState.minimum_raise);
+ }
 
 export function callOrCheck(gameState: GameState, betCallback: (bet: number) => void): void {
   const currentBuy = gameState.current_buy_in;
