@@ -1,6 +1,6 @@
 import { GameState, Card as GameCard } from './GameState'
 import { Card, Evaluator } from 'deuces.js'
-import { allIn, call, fold } from './actions'
+import { allIn, check, fold } from './actions'
 
 export class Player {
 
@@ -36,7 +36,7 @@ export class Player {
     // directly go all-in until a better strategy is implemented
     // assuming it’s a sit’n’go and every round is new, this is valid
     if (gameState.community_cards.length === 0) {
-      call(gameState, betCallback)
+      check(gameState, betCallback)
     } else {
               // evaluate rank
       // Hand strength is valued on a scale of 1 to 7462,
@@ -50,12 +50,12 @@ export class Player {
       console.log(`Rank for your hand is: ${rank} (${evaluator.class_to_string(rankClass)})`)
       console.log(percentage)
 
-      if (percentage < 0.5) {
+      if (percentage < 0.3) {
         fold(gameState, betCallback)
-      } else  if (percentage > 0.9) {
+      } else  if (percentage > 0.6) {
         allIn(gameState, betCallback)
       } else {
-        call(gameState, betCallback)
+        check(gameState, betCallback)
       }
 
   
