@@ -6,12 +6,14 @@ import { GameState } from "./GameState";
 // }
 
 export function check(gameState: GameState, betCallback: (bet: number) => void): void {
-    if (gameState.current_buy_in === gameState.players[gameState.in_action].bet) {
+    const currentBuy = gameState.current_buy_in;
+    const us = gameState.players[gameState.in_action]
+    if (currentBuy === us.bet) {
         console.log('ACTION: check function: check with 0')
         betCallback(0) // no more raise
     } else {
-        console.log(`ACTION: checking with current_buy: ${gameState.current_buy_in}`)
-        const amount = gameState.current_buy_in - gameState.players[gameState.in_action].bet
+        console.log(`ACTION: calling with current_buy: ${currentBuy}`)
+        const amount = currentBuy - us.bet
         betCallback(amount) // we stay in the game
     }
 }
