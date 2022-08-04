@@ -11,7 +11,8 @@ export function check(gameState: GameState, betCallback: (bet: number) => void):
         betCallback(0) // no more raise
     } else {
         console.log(`ACTION: checking with current_buy: ${gameState.current_buy_in}`)
-        betCallback(gameState.current_buy_in) // we raise
+        const amount = gameState.current_buy_in - gameState.players[gameState.in_action].bet
+        betCallback(amount) // we stay in the game
     }
 }
 

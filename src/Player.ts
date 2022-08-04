@@ -36,9 +36,10 @@ export class Player {
     // directly go all-in until a better strategy is implemented
     // assuming it’s a sit’n’go and every round is new, this is valid
     if (gameState.community_cards.length === 0) {
+      
       check(gameState, betCallback)
     } else {
-              // evaluate rank
+      // evaluate rank
       // Hand strength is valued on a scale of 1 to 7462,
       // where 1 is a Royal Flush and 7462 is unsuited 7-5-4-3-2,
       // as there are only 7642 distinctly ranked hands in poker.
