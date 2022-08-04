@@ -9,7 +9,7 @@ export class Player {
   }
 
   public betRequest(gameState: GameState, betCallback: (bet: number) => void): void {
-    console.log(gameState)
+    console.log('betRequest', gameState)
 
     // this will fold all the time
     // betCallback(0)
@@ -49,8 +49,9 @@ export class Player {
     // TODO: add turn and river
   }
 
-  public showdown(_gameState: GameState): void {
+  public showdown(gameState: GameState): void {
     // for implementing learning algorithms only
+    console.log('showdown', gameState)
   }
 }
 
