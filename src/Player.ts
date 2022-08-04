@@ -50,13 +50,13 @@ export class Player {
       const callHandRanks = ['AQ', 'AJ', 'AT', 'A9', 'KQ', 'KJ', 'KT'];
 
       console.log( `
-      
-      startingHandRanks : ${startingHandRanks} 
+
+      startingHandRanks : ${startingHandRanks}
       startingHandSuits : ${startingHandSuits}
       do we raise? ${raiseHandRanks.includes(startingHandRanks) || raiseHandSuits.includes(startingHandSuits)}
 
       do we call? ${callHandRanks.includes(startingHandRanks)}
-      
+
       `)
 
       if (raiseHandRanks.includes(startingHandRanks) || raiseHandSuits.includes(startingHandSuits)) {
@@ -67,7 +67,7 @@ export class Player {
         fold(gameState, betCallback);
       }
 
-    } if (gameState.community_cards.length === 3) {
+    } else if (gameState.community_cards.length === 3) {
 
       if (percentage > 0.6) {
         raiseHigh(gameState, betCallback);
