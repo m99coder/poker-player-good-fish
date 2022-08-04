@@ -96,7 +96,7 @@ export class Player {
 
   public showdown(gameState: GameState): void {
     // for implementing learning algorithms only
-    console.log("showdown", gameState);
+    // console.log("showdown", gameState);
   }
 }
 
