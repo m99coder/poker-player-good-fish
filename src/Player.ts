@@ -37,7 +37,26 @@ export class Player {
     // assuming it’s a sit’n’go and every round is new, this is valid
     logGameStatus(gameState, hand, board, percentage, rank, evaluator);
     if (gameState.community_cards.length === 0) {
-      callOrCheck(gameState, betCallback);
+
+      const startingHandRanks =
+        gameState.players[gameState.in_action].hole_cards
+          .map(c => c.rank === '10' ? 'T' : c.rank).join();
+      const startingHandSuits =
+        gameState.players[gameState.in_action].hole_cards
+          .map(c => c.suit[0]).join();
+
+      const raiseHandRanks = ['AA', 'KK', 'QQ', 'JJ', 'TT', 'AK'];
+      const raiseHandSuits = ['cc', 'ss', 'hh', 'dd'];
+      const callHandRanks = ['AQ', 'AJ', 'AT', 'A9', 'KQ', 'KJ', 'KT'];
+
+      if (raiseHandRanks || raiseHandSuits) {
+        raise(gameState, betCallback);
+      } else if (callHandRanks) {
+        callOrCheck(gameState, betCallback);
+      } else {
+        fold(gameState, betCallback);
+      }
+
     } else {
 
       if (percentage > 0.6) {
