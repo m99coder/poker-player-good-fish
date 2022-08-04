@@ -67,7 +67,7 @@ export class Player {
         fold(gameState, betCallback);
       }
 
-    } else if (gameState.community_cards.length === 3) {
+    } else if (gameState.community_cards.length >= 4) {
 
       if (percentage > 0.6) {
         raiseHigh(gameState, betCallback);
