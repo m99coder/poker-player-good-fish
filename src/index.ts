@@ -1,7 +1,7 @@
 import * as express from 'express'
 import { Player } from './Player'
 
-const VERSION = 'Default TypeScript folding player'
+const VERSION = 'Evil 🐟'
 
 const app = express()
 const player = new Player()
