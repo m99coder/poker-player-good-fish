@@ -54,11 +54,11 @@ export class Player {
       );
       console.log(percentage);
 
-      if (percentage > 0.85) {
+      if (percentage > 0.8) {
         allIn(gameState, betCallback);
-      } else if (percentage > 0.6) {
+      } else if (percentage > 0.5) {
         raise(gameState, betCallback);
-      } else if (percentage > 0.3) {
+      } else if (percentage > 0.25) {
         callOrCheck(gameState, betCallback);
       } else {
         fold(gameState, betCallback);
