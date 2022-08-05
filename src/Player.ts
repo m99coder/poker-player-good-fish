@@ -1,8 +1,7 @@
 import { GameState } from './GameState'
-import { Evaluator } from 'deuces.js'
 import { allIn, callOrCheck, fold, raise, raiseHigh } from './actions'
 // import { logGameStatus } from './helpers'
-import Utils from './Utils'
+import { Utils, Action } from './Utils'
 
 export class Player {
   public betRequest(gameState: GameState, betCallback: (bet: number) => void): void {
@@ -10,9 +9,8 @@ export class Player {
     const hand = Utils.encodeHand(gameState)
     const board = Utils.encodeBoard(gameState)
 
-    const evaluator = new Evaluator()
-    const rank = evaluator.evaluate(board, hand)
-    const percentage = 1.0 - evaluator.get_five_card_rank_percentage(rank)
+    // get win probability
+    const percentage = Utils.getWinProbability(board, hand)
 
     // this will fold all the time
     // betCallback(0)
@@ -24,31 +22,19 @@ export class Player {
     // logGameStatus(gameState, hand, board, percentage, rank, evaluator)
 
     if (gameState.community_cards.length === 0) {
-      const startingHandRanks = gameState.players[gameState.in_action].hole_cards
-        .map((c) => (c.rank === '10' ? 'T' : c.rank))
-        .join('')
-      const startingHandSuits = gameState.players[gameState.in_action].hole_cards.map((c) => c.suit[0]).join('')
-
-      const raiseHandRanks = ['AA', 'KK', 'QQ', 'JJ', 'TT', 'AK']
-      const raiseHandSuits = ['cc', 'ss', 'hh', 'dd']
-      const callHandRanks = ['AQ', 'AJ', 'AT', 'A9', 'KQ', 'KJ', 'KT']
-
-      console.log(`
-
-      startingHandRanks : ${startingHandRanks}
-      startingHandSuits : ${startingHandSuits}
-      do we raise? ${raiseHandRanks.includes(startingHandRanks) || raiseHandSuits.includes(startingHandSuits)}
-
-      do we call? ${callHandRanks.includes(startingHandRanks)}
-
-      `)
-
-      if (raiseHandRanks.includes(startingHandRanks) || raiseHandSuits.includes(startingHandSuits)) {
-        raise(gameState, betCallback)
-      } else if (callHandRanks.includes(startingHandRanks)) {
-        callOrCheck(gameState, betCallback)
-      } else {
-        fold(gameState, betCallback)
+      // determine action for starting hand
+      switch (Utils.getActionForStartingHand(hand)) {
+        case Action.Fold:
+          fold(gameState, betCallback)
+          return
+        case Action.Call:
+          callOrCheck(gameState, betCallback)
+          return
+        case Action.Raise:
+          raise(gameState, betCallback)
+          return
+        default:
+          fold(gameState, betCallback)
       }
     } else if (gameState.community_cards.length >= 4) {
       if (percentage > 0.6) {

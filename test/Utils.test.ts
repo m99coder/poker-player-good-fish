@@ -1,4 +1,4 @@
-import Utils from '../src/Utils'
+import Utils, { Action } from '../src/Utils'
 import { Card as GameCard } from '../src/GameState'
 import { gameState } from './fixtures'
 import { Card } from 'deuces.js'
@@ -59,5 +59,64 @@ describe('Utils', () => {
     // full house
     board.push(Card.newCard('Kh'))
     expect(Utils.getWinProbability(board, hand)).toBe(0.96462074510855)
+  })
+
+  it('returns action for starting hands', () => {
+    // raise
+    let hand = [Card.newCard('As'), Card.newCard('Ah')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('Ks'), Card.newCard('Kh')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('Qs'), Card.newCard('Qh')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('Js'), Card.newCard('Jh')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('Ts'), Card.newCard('Th')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('As'), Card.newCard('Kh')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('2c'), Card.newCard('3c')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('4s'), Card.newCard('5s')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('6h'), Card.newCard('7h')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    hand = [Card.newCard('8d'), Card.newCard('9d')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Raise)
+
+    // call
+    hand = [Card.newCard('Ad'), Card.newCard('Qc')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Call)
+
+    hand = [Card.newCard('Ad'), Card.newCard('Jc')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Call)
+
+    hand = [Card.newCard('Ad'), Card.newCard('Tc')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Call)
+
+    hand = [Card.newCard('Ad'), Card.newCard('9c')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Call)
+
+    hand = [Card.newCard('Kd'), Card.newCard('Qc')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Call)
+
+    hand = [Card.newCard('Kd'), Card.newCard('Jc')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Call)
+
+    hand = [Card.newCard('Kd'), Card.newCard('Tc')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Call)
+
+    // fold
+    hand = [Card.newCard('2d'), Card.newCard('7c')]
+    expect(Utils.getActionForStartingHand(hand)).toBe(Action.Fold)
   })
 })
