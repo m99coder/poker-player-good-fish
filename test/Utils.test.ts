@@ -1,4 +1,4 @@
-import Player from '../src/Player'
+import Utils from '../src/Utils'
 import { Card as GameCard } from '../src/GameState'
 
 describe('Player', () => {
@@ -7,24 +7,24 @@ describe('Player', () => {
       rank: '10',
       suit: 'clubs',
     }
-    expect(Player.encodeCard(card)).toBe('Tc')
+    expect(Utils.encodeCard(card)).toBe('Tc')
 
     card = {
       rank: 'K',
       suit: 'spades',
     }
-    expect(Player.encodeCard(card)).toBe('Ks')
+    expect(Utils.encodeCard(card)).toBe('Ks')
 
     card = {
       rank: '4',
       suit: 'hearts',
     }
-    expect(Player.encodeCard(card)).toBe('4h')
+    expect(Utils.encodeCard(card)).toBe('4h')
 
     card = {
       rank: 'J',
       suit: 'diamonds',
     }
-    expect(Player.encodeCard(card)).toBe('Jd')
+    expect(Utils.encodeCard(card)).toBe('Jd')
   })
 })

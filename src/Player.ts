@@ -1,20 +1,16 @@
-import { GameState, Card as GameCard } from './GameState'
+import { GameState } from './GameState'
 import { Card, Evaluator } from 'deuces.js'
 import { allIn, callOrCheck, fold, raise, raiseHigh } from './actions'
 import { logGameStatus } from './helpers'
+import Utils from './Utils'
 
 export class Player {
-  static encodeCard(card: GameCard): string {
-    const rank = card.rank === '10' ? 'T' : card.rank
-    return `${rank}${card.suit[0]}`
-  }
-
   public betRequest(gameState: GameState, betCallback: (bet: number) => void): void {
     // encode hole cards
-    const hand = gameState.players[gameState.in_action].hole_cards.map((c) => Card.newCard(Player.encodeCard(c)))
+    const hand = gameState.players[gameState.in_action].hole_cards.map((c) => Card.newCard(Utils.encodeCard(c)))
 
     // encode community cards
-    const board = gameState.community_cards.map((c) => Card.newCard(Player.encodeCard(c)))
+    const board = gameState.community_cards.map((c) => Card.newCard(Utils.encodeCard(c)))
 
     const evaluator = new Evaluator()
     const rank = evaluator.evaluate(board, hand)
