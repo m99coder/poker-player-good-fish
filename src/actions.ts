@@ -1,16 +1,16 @@
 import { GameState } from './GameState'
 
- export function raise(gameState: GameState, betCallback: (bet: number) => void): void {
-     betCallback(gameState.minimum_raise);
- }
+export function raise(gameState: GameState, betCallback: (bet: number) => void): void {
+  betCallback(gameState.minimum_raise)
+}
 
- export function raiseHigh(gameState: GameState, betCallback: (bet: number) => void): void {
-    const us = gameState.players[gameState.in_action]
-    betCallback(Math.floor(us.stack / 3));
- }
+export function raiseHigh(gameState: GameState, betCallback: (bet: number) => void): void {
+  const us = gameState.players[gameState.in_action]
+  betCallback(Math.floor(us.stack / 3))
+}
 
 export function callOrCheck(gameState: GameState, betCallback: (bet: number) => void): void {
-  const currentBuy = gameState.current_buy_in;
+  const currentBuy = gameState.current_buy_in
   const us = gameState.players[gameState.in_action]
   if (currentBuy === us.bet) {
     console.log('ACTION: check function: check with 0')

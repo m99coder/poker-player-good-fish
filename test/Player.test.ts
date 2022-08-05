@@ -5,25 +5,25 @@ describe('Player', () => {
   it('encodes cards', () => {
     let card: GameCard = {
       rank: '10',
-      suit: 'clubs'
+      suit: 'clubs',
     }
     expect(Player.encodeCard(card)).toBe('Tc')
 
     card = {
       rank: 'K',
-      suit: 'spades'
+      suit: 'spades',
     }
     expect(Player.encodeCard(card)).toBe('Ks')
 
     card = {
       rank: '4',
-      suit: 'hearts'
+      suit: 'hearts',
     }
     expect(Player.encodeCard(card)).toBe('4h')
 
     card = {
       rank: 'J',
-      suit: 'diamonds'
+      suit: 'diamonds',
     }
     expect(Player.encodeCard(card)).toBe('Jd')
   })
