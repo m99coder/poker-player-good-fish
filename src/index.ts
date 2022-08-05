@@ -1,4 +1,4 @@
-import express from 'express'
+import * as express from 'express'
 import { Player } from './Player'
 
 const VERSION = 'DDOS'

@@ -1,16 +1,14 @@
 import { GameState } from './GameState'
-import { Card, Evaluator } from 'deuces.js'
+import { Evaluator } from 'deuces.js'
 import { allIn, callOrCheck, fold, raise, raiseHigh } from './actions'
-import { logGameStatus } from './helpers'
+// import { logGameStatus } from './helpers'
 import Utils from './Utils'
 
 export class Player {
   public betRequest(gameState: GameState, betCallback: (bet: number) => void): void {
-    // encode hole cards
-    const hand = gameState.players[gameState.in_action].hole_cards.map((c) => Card.newCard(Utils.encodeCard(c)))
-
-    // encode community cards
-    const board = gameState.community_cards.map((c) => Card.newCard(Utils.encodeCard(c)))
+    // encode hole cards and community cards
+    const hand = Utils.encodeHand(gameState)
+    const board = Utils.encodeBoard(gameState)
 
     const evaluator = new Evaluator()
     const rank = evaluator.evaluate(board, hand)
@@ -22,7 +20,9 @@ export class Player {
     // phase 1 –––
     // directly go all-in until a better strategy is implemented
     // assuming it’s a sit’n’go and every round is new, this is valid
-    logGameStatus(gameState, hand, board, percentage, rank, evaluator)
+
+    // logGameStatus(gameState, hand, board, percentage, rank, evaluator)
+
     if (gameState.community_cards.length === 0) {
       const startingHandRanks = gameState.players[gameState.in_action].hole_cards
         .map((c) => (c.rank === '10' ? 'T' : c.rank))
